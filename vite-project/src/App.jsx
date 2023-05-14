@@ -8,7 +8,6 @@ import TakeContact from "./components/TakeContact";
 import Home from "./components/Home";
 import Portfolio from "./components/Portfolio";
 import Article from "./components/Article";
-import JohnnyBakaasPersonligNettside from "./components/portfolioContent/JohnnyBakaasPersonligNettside";
 
 function App() {
   return (
