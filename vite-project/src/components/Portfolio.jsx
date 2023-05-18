@@ -4,9 +4,18 @@ import StyledFirstParagraph from "./StyledFirstParagraph";
 import StyledH2 from "./StyledH2";
 import StyledP from "./StyledP";
 import { Link } from "react-router-dom";
+import ArticleImageParent from "./ArticleImageParent";
+import myFirstArticleImgae from "./portfolioContent/img/myFirstArticleImgae.jpg";
 
 const StyledArticleContainerLink = styled(Link)`
-  padding-bottom: 100px;
+  all: unset;
+  cursor: pointer;
+  margin-bottom: 100px;
+`;
+
+const MyFirstArticleImgae = styled(ArticleImageParent)`
+  background-image: url(${myFirstArticleImgae});
+  min-height: 330px;
 `;
 
 const Portfolio = () => {
@@ -16,27 +25,21 @@ const Portfolio = () => {
         <StyledH2>Johnny Bakaas - Personlig nettside</StyledH2>
         <StyledFirstParagraph>
           <div>
-            <StyledP>Hva er målet mitt med denne nettsiden?</StyledP>
+            <StyledP>Min første artikkel!</StyledP>
             <StyledP>
-              1: Lære React. 2: Ha ett sted å vise ferdighetene og prosjektene
-              mine. 3: Ha noe å se tilbake på
+              Min første artikkel!rrrrr rrrrrrrr rr rrr rrrrrr
+              rrrrrrrrrrrrrrrrrrrrrrrrrr rrrrrr rrrrr rrrrrrr rrrrrrrrrrrrrrr
+              rrrrrrrrrrrrrrrrrrrrr rrrrrrrrrrr rrrrrr rrrrrr rrrrrrrrrr
+              rrrrrrrrr rrrrrrrr
             </StyledP>
             <StyledP>
-              Så, lærte jeg React? Dette er ikke den første gang jeg har brukt
-              React, men det er første gangen jeg har fokusert på å skrive bra
-              kode, fram til dette prosjektet har jeg bare brukt React til å
-              kaste sammen en frontend for Fullstack prosjektene mine. Så nå vet
-              jeg både hvordan useState og useEffect fungerer og hvorfor man
-              skal bruke de. Har jeg en dyp forståelse for hvordan Hooks
-              fungerer? Som det meste annet i livet er dette relativt, har jeg
-              like dyp forståelse som mentorene mine? Nei, men det er svært
-              liete jeg ikke forstår lenger
+              Min første artikkel!rrrrr rrrrrrrr rr rrr rrrrrr
+              rrrrrrrrrrrrrrrrrrrrrrrrrr rrrrrr rrrrr rrrrrrr rrrrrrrrrrrrrrr
+              rrrrrrrrrrrrrrrrrrrrr rrrrrrrrrrr rrrrrr rrrrrr rrrrrrrrrr
+              rrrrrrrr rrrrrrrrr
             </StyledP>
           </div>
-          <div>
-            bilde her med logoene til react, vite, js, styled components, npm og
-            chatgpt
-          </div>
+          <MyFirstArticleImgae />
         </StyledFirstParagraph>
       </StyledArticleContainerLink>
     </ContentContainer>

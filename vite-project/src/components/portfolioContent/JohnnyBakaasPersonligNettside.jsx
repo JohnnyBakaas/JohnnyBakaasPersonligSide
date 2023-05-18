@@ -1,12 +1,19 @@
+import styled from "styled-components";
 import StyledH2 from "../StyledH2";
 import StyledP from "../StyledP";
+
+const Bold = styled.span`
+  font-weight: bold;
+`;
 
 const JohnnyBakaasPersonligNettside = () => {
   return (
     <>
       <StyledH2>Johnny Bakaas - Personlig nettside</StyledH2>
 
-      <StyledP>Hva er målet mitt med denne nettsiden?</StyledP>
+      <StyledP>
+        <Bold>Hva er målet mitt med denne nettsiden?</Bold>
+      </StyledP>
       <StyledP>
         1: Lære React. 2: Ha ett sted å vise ferdighetene og prosjektene mine.
         3: Ha noe å se tilbake på
@@ -15,17 +22,17 @@ const JohnnyBakaasPersonligNettside = () => {
         Så, lærte jeg React? Dette er ikke den første gang jeg har brukt React,
         men det er første gangen jeg har fokusert på å skrive bra kode, fram til
         dette prosjektet har jeg bare brukt React til å kaste sammen en frontend
-        for Fullstack prosjektene mine. Så nå vet jeg både hvordan useState og
-        useEffect fungerer og hvorfor man skal bruke de. Har jeg en dyp
-        forståelse for hvordan Hooks fungerer? Som det meste annet i livet er
-        dette relativt, har jeg like dyp forståelse som mentorene mine? Nei, men
-        det er svært liete jeg ikke forstår og jeg er mer en komfertabel med å
-        skrive React.
+        for Fullstack prosjektene mine. Så etter dett prosjektet vet jeg både
+        hvordan useState og useEffect fungerer og hvorfor man faktisk skal bruke
+        de. Har jeg en dyp forståelse for hvordan Hooks fungerer? Som det meste
+        annet i livet er dette relativt, har jeg like dyp forståelse som
+        mentorene mine? Nei, men det er svært liete jeg ikke forstår og jeg er
+        mer en komfertabel med å skrive React.
       </StyledP>
 
       <StyledP>
-        I tilleg til React ville jeg gjøre livet mitt litt lettere, så jeg
-        bruker også styled compnents
+        For å gjøre livet mitt litt lettere valgte jeg å bruker styled compnents
+        og React Router for å ta seg av stylinga og routinga
       </StyledP>
 
       <StyledH2>Alt under her er komentarer</StyledH2>
