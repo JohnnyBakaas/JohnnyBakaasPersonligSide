@@ -8,6 +8,13 @@ import StyledFirstParagraph from "./StyledFirstParagraph";
 
 const HomeImage = styled(ArticleImageParent)``;
 
+const StyledHomeButonContainer = styled.div`
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-top: 90px;
+`;
+
 const TakeContact = () => {
   return (
     <ContentContainer>
@@ -26,7 +33,9 @@ const TakeContact = () => {
         </div>
         <HomeImage />
       </StyledFirstParagraph>
-      <h1>Legg til CTA Button igjen og få den til å være ikke stygg</h1>
+      <StyledHomeButonContainer>
+        <CTAButton />
+      </StyledHomeButonContainer>
     </ContentContainer>
   );
 };

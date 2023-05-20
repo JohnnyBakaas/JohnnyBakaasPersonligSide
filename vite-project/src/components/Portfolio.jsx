@@ -16,6 +16,7 @@ const StyledArticleContainerLink = styled(Link)`
 const MyFirstArticleImgae = styled(ArticleImageParent)`
   background-image: url(${myFirstArticleImgae});
   min-height: 330px;
+  max-height: 330px;
 `;
 
 const Portfolio = () => {
@@ -27,16 +28,12 @@ const Portfolio = () => {
           <div>
             <StyledP>Min første artikkel!</StyledP>
             <StyledP>
-              Min første artikkel!rrrrr rrrrrrrr rr rrr rrrrrr
-              rrrrrrrrrrrrrrrrrrrrrrrrrr rrrrrr rrrrr rrrrrrr rrrrrrrrrrrrrrr
-              rrrrrrrrrrrrrrrrrrrrr rrrrrrrrrrr rrrrrr rrrrrr rrrrrrrrrr
-              rrrrrrrrr rrrrrrrr
+              Alt om hvordan det var å lage nettsiden, hvorfor jeg har tatt
+              forskellige valg og problemer jeg har måtte løse på vegen.
             </StyledP>
             <StyledP>
-              Min første artikkel!rrrrr rrrrrrrr rr rrr rrrrrr
-              rrrrrrrrrrrrrrrrrrrrrrrrrr rrrrrr rrrrr rrrrrrr rrrrrrrrrrrrrrr
-              rrrrrrrrrrrrrrrrrrrrr rrrrrrrrrrr rrrrrr rrrrrr rrrrrrrrrr
-              rrrrrrrr rrrrrrrrr
+              Og viktigst av alt, hva jeg har lært og hvordan jeg kan hjelpe deg
+              med kunskapen jeg har plukket opp.
             </StyledP>
           </div>
           <MyFirstArticleImgae />
