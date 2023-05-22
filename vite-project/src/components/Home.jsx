@@ -9,6 +9,7 @@ import BildeAvMeg from "./images/BildeAvMeg.jpg";
 
 const HomeImage = styled(ArticleImageParent)`
   background-image: url(${BildeAvMeg});
+  background-position-y: 20%;
 `;
 
 const StyledHomeButonContainer = styled.div`
