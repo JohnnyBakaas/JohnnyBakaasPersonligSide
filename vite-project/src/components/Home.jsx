@@ -5,8 +5,11 @@ import ContentContainer from "./ContentContainer";
 import StyledH2 from "./StyledH2";
 import StyledP from "./StyledP";
 import StyledFirstParagraph from "./StyledFirstParagraph";
+import BildeAvMeg from "./images/BildeAvMeg.jpg";
 
-const HomeImage = styled(ArticleImageParent)``;
+const HomeImage = styled(ArticleImageParent)`
+  background-image: url(${BildeAvMeg});
+`;
 
 const StyledHomeButonContainer = styled.div`
   display: flex;

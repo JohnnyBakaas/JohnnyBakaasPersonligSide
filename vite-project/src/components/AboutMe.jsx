@@ -4,6 +4,11 @@ import ContentContainer from "./ContentContainer";
 import StyledH2 from "./StyledH2";
 import StyledP from "./StyledP";
 import StyledFirstParagraph from "./StyledFirstParagraph";
+import BildeAvMeg from "./images/BildeAvMeg.jpg";
+
+const HomeImage = styled(ArticleImageParent)`
+  background-image: url(${BildeAvMeg});
+`;
 
 const AboutMe = () => {
   return (
@@ -22,7 +27,7 @@ const AboutMe = () => {
           noe som har blitt en lidenskap på lik linje med teknisk tegning.
         </StyledP>
 
-        <ArticleImageParent />
+        <HomeImage />
       </StyledFirstParagraph>
 
       <StyledP>
