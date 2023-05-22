@@ -14,42 +14,56 @@ const JohnnyBakaasPersonligNettside = () => {
       <StyledP>
         <Bold>Hva er målet mitt med denne nettsiden?</Bold>
       </StyledP>
+
       <StyledP>
-        1: Lære React. 2: Ha ett sted å vise ferdighetene og prosjektene mine.
-        3: Ha noe å se tilbake på
-      </StyledP>
-      <StyledP>
-        Så, lærte jeg React? Dette er ikke den første gang jeg har brukt React,
-        men det er første gangen jeg har fokusert på å skrive bra kode, fram til
-        dette prosjektet har jeg bare brukt React til å kaste sammen en frontend
-        for Fullstack prosjektene mine. Så etter dett prosjektet vet jeg både
-        hvordan useState og useEffect fungerer og hvorfor man faktisk skal bruke
-        de. Har jeg en dyp forståelse for hvordan Hooks fungerer? Som det meste
-        annet i livet er dette relativt, har jeg like dyp forståelse som
-        mentorene mine? Nei, men det er svært liete jeg ikke forstår og jeg er
-        mer en komfertabel med å skrive React.
+        Mine mål er trefoldige: 1 Lære React. 2 Ha et sted for å demonstrere
+        mine ferdigheter og prosjekter. 3 Lage noe jeg kan se tilbake på.
       </StyledP>
 
       <StyledP>
-        For å gjøre livet mitt litt lettere valgte jeg å bruker styled compnents
-        og React Router for å ta seg av stylinga og routinga
+        Denne nettsiden er skrevet i React med Vite som byggeverktøy. Jeg har
+        benyttet Styled Components for CSS, og React Router for ruting. Dette
+        gjør det mulig å dele lenker til spesifikke artikler, noe som er nyttig
+        når man arbeider med en enkeltstående applikasjon (SPA).
       </StyledP>
 
-      <StyledH2>Alt under her er komentarer</StyledH2>
+      <StyledP>
+        Lærte jeg React gjennom dette prosjektet? Dette er ikke første gang jeg
+        har brukt React, men det er første gang jeg har konsentrert meg om å
+        skrive god kode. Fra tidligere har jeg benyttet React for å kaste sammen
+        en frontend for mine fullstack-prosjekter. Gjennom dette prosjektet har
+        jeg fått dypere forståelse for React, og jeg føler meg nå komfortabel
+        med å skrive React-kode.
+      </StyledP>
 
       <StyledP>
-        Hvordan starte en artikkel om nettsiden du jobber på? Vel, la oss starte
-        med teknologien jeg har brukt
+        Jeg støtte på noen problemer da jeg skulle implementere Styled
+        Components. Det viste seg at den nyeste versjonen på NPM hadde feil.
+        Etter å ha forsøkt å installere flere ganger, valgte jeg til slutt å
+        installere en tidligere versjon (npm install styled-components@5.3.8).
+        Da jeg løste dette problemet, hjalp jeg også andre som slet med det
+        samme på Discord-serveren deres.
       </StyledP>
+
       <StyledP>
-        Siden er skrivet i React med Vite som "build tool". For css bruker jeg
-        Styled componets. For routing bruker jeg React Router. JavaScript for
-        språk. Dette er faktsik en SPA. Problemer jeg har hatt er at Styled
-        Components sin nyeste versjon på NPM ikke fungerer (11.05.2023).
+        Til tross for noen hindringer, ble alle problemer løst ved hjelp av en
+        kombinasjon av å banke hodet i veggen, veiledning fra min mentor, og
+        bruk av ChatGPT. Jeg fant ut at ChatGPT er et utrolig nyttig verktøy for
+        å generere "boilerplate"-kode, forklare hvordan ting fungerer, og komme
+        med forslag. Likevel, som alle verktøy, har det sine begrensninger. For
+        eksempel prøvde jeg å få ChatGPT til å konvertere headeren min fra
+        "useState" til "Link". Det endte med å ødelegge både stil og
+        funksjonalitet. Derfor er min konklusjon at så lenge man vet hva man
+        gjør og bruker verktøyet riktig, kan det øke produktiviteten
+        betraktelig.
       </StyledP>
+
       <StyledP>
-        Problemer: Lære seg React, React Router og Styled components. Løsning:
-        Banke hodet i veggen, spørre mentorene mine og spørre ChatGPT
+        Kan henne du allerede har lagt merke til det, men hele denne artikkelen
+        er skrevet av Chat GPT, jeg snakker Bø-hæring og har dysleks så å bare
+        kunne brain dumpe med så mange skrive feil som fysisk mulig og dårlig
+        struktur er ekstremt nyttig, selvsagt har jeg endret på noen ord og
+        setininger, men ellers er det bare Chat GPT.
       </StyledP>
     </>
   );

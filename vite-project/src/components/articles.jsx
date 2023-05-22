@@ -8,3 +8,20 @@ const articles = [
 ];
 
 export default articles;
+
+const exampleArchitecture = [
+  {
+    content: [
+      {
+        title: "En flott tittel",
+      },
+      {
+        p: "Noe tekst",
+        img: "en link",
+      },
+      {
+        p: "Enda mer tekst",
+      },
+    ],
+  },
+];

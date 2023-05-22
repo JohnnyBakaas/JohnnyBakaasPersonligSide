@@ -1,4 +1,4 @@
-import { useParams } from "react-router-dom"; // Fixed import
+import { useParams } from "react-router-dom";
 import articles from "./articles";
 import ContentContainer from "./ContentContainer";
 
@@ -10,7 +10,7 @@ const Article = () => {
     return <div>Article not found</div>;
   }
 
-  return <ContentContainer>{article.tag}</ContentContainer>;
+  if (article.tag) return <ContentContainer>{article.tag}</ContentContainer>;
 };
 
 export default Article;
