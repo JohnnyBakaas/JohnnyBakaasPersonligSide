@@ -19,9 +19,6 @@ const StyledH1 = styled.h1`
   padding-right: 0px;
   user-select: none;
   cursor: pointer;
-  @media (max-width: 370px) {
-    font-size: 38px;
-  }
 `;
 
 const Nav = styled.ul`
@@ -29,7 +26,6 @@ const Nav = styled.ul`
   @media (max-width: 900px) {
     flex-direction: column;
     display: ${(props) => (props.selected ? "none" : "flex")};
-    //display: none;
   }
 `;
 
@@ -75,7 +71,7 @@ const StyledLink = styled(Link)`
 const TheHamburglarContainer = styled.div`
   display: none;
   @media (max-width: 900px) {
-    padding: 20px 10px 17px;
+    padding: 20px 10px 17px 5px;
     display: flex;
     align-items: center;
     flex-direction: column;
@@ -88,7 +84,24 @@ const TheHamburglerBarz = styled.div`
   height: 4px;
   background-color: #d10000;
   border-radius: 3px;
+  transition: transform 0.1s ease-in-out;
+
+  :nth-child(1) {
+    transform: ${(props) =>
+      props.selected ? "" : " translateY(14px) rotate(-45deg); "};
+  }
+  :nth-child(2) {
+    transform: ${(props) => (props.selected ? "" : "rotate(45deg); ")};
+  }
+  :nth-child(3) {
+    transform: ${(props) =>
+      props.selected ? "" : "translateY(-13px) rotate(-45deg);"};
+  }
 `;
+
+/*
+
+*/
 
 const MobileHeader = styled.div`
   display: flex;
@@ -118,9 +131,9 @@ const StyledHeader = () => {
             <StyledH1>Johnny Bakaas</StyledH1>
           </StyledLink>
           <TheHamburglarContainer onClick={togleShowNav}>
-            <TheHamburglerBarz />
-            <TheHamburglerBarz />
-            <TheHamburglerBarz />
+            <TheHamburglerBarz selected={showNav} />
+            <TheHamburglerBarz selected={showNav} />
+            <TheHamburglerBarz selected={showNav} />
           </TheHamburglarContainer>
         </MobileHeader>
 
