@@ -42,22 +42,28 @@ const TheImgsContainer = styled.div`
   justify-content: space-between;
 `;
 
+const StyledPWithMedia = styled(StyledP)`
+  @media (max-width: 550px) {
+    font-size: 19px;
+  }
+`;
+
 const StyledFooter = () => {
   return (
     <Sfooter>
       <FooterContentContainer>
-        <StyledP>
+        <StyledPWithMedia>
           Epost:{" "}
           <StyledLinkTlfAndEmail href="mailto:Johnny@Bakaas-CadConsult.no">
             Johnny@Bakaas-CadConsult.no
           </StyledLinkTlfAndEmail>
-        </StyledP>
-        <StyledP>
+        </StyledPWithMedia>
+        <StyledPWithMedia>
           Tlf:{" "}
           <StyledLinkTlfAndEmail href="tel:+4790732947">
             90732947
           </StyledLinkTlfAndEmail>
-        </StyledP>
+        </StyledPWithMedia>
         <TheImgsContainer>
           <StyledLink href="https://github.com/JohnnyBakaas/JohnnyBakaasPersonligSide">
             <StyledLogos src={GitHubLogo} alt="GitHubLogo" />

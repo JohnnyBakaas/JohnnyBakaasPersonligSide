@@ -17,6 +17,12 @@ const MyFirstArticleImgae = styled(ArticleImageParent)`
   background-image: url(${myFirstArticleImgae});
   min-height: 330px;
   max-height: 330px;
+  @media (max-width: 1300px) {
+    min-height: 0;
+    max-height: 100%;
+    aspect-ratio: 15 / 10;
+    height: auto;
+  }
 `;
 
 const Portfolio = () => {

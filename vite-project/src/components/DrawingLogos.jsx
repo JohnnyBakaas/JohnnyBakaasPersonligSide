@@ -9,6 +9,9 @@ const StyledLogos = styled.img`
   margin-top: 20px;
   margin-left: 30px;
   user-select: none;
+  @media (max-width: 1300px) {
+    margin: 20px;
+  }
 `;
 
 const StyledSVGWid = styled(StyledLogos)`
@@ -18,6 +21,11 @@ const StyledSVGWid = styled(StyledLogos)`
 const StyledDrawingLogos = styled.div`
   display: flex;
   flex-direction: row-reverse;
+  @media (max-width: 1300px) {
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: center;
+  }
 `;
 
 const DrawingLogos = () => {

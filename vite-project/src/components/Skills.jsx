@@ -19,14 +19,27 @@ const AutocadImage = styled(ArticleImageParent)`
 
 const StyledRightP = styled(StyledP)`
   text-align: right;
+  @media (max-width: 1300px) {
+    text-align: left;
+  }
 `;
 
 const StyldedRightH2 = styled(StyledH2)`
   text-align: right;
+  @media (max-width: 1300px) {
+    text-align: left;
+  }
 `;
 
 const StyledSkillsContainer = styled.div`
   padding-bottom: 100px;
+`;
+
+const StyledFirstParagraphMedia = styled(StyledFirstParagraph)`
+  @media (max-width: 1300px) {
+    display: flex;
+    flex-direction: column-reverse;
+  }
 `;
 
 const Skills = () => {
@@ -34,7 +47,7 @@ const Skills = () => {
     <ContentContainer>
       <StyledSkillsContainer>
         <StyledH2>Utvikling</StyledH2>
-        <StyledFirstParagraph>
+        <StyledFirstParagraphMedia>
           <div>
             <StyledP>
               Som utvikler har jeg bred og variert erfaring som jeg kan tilby
@@ -48,7 +61,7 @@ const Skills = () => {
             <ProgramingLogos />
           </div>
           <ProgramingImage />
-        </StyledFirstParagraph>
+        </StyledFirstParagraphMedia>
       </StyledSkillsContainer>
 
       <div>

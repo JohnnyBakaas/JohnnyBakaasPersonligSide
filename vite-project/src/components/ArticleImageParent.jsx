@@ -10,6 +10,13 @@ const ArticleImageParent = styled.div`
   background-position: center; /* Center the image */
   background-repeat: no-repeat; /* Do not repeat the image */
   background-size: cover; /* Resize the background image to cover the entire container */
+  @media (max-width: 1300px) {
+    width: 100%;
+    height: 200px;
+    min-width: 0;
+
+    min-height: 0;
+  }
 `;
 
 export default ArticleImageParent;

@@ -1,11 +1,17 @@
 import { Link, useLocation } from "react-router-dom";
 import styled from "styled-components";
 import WidthContainer from "./WidthContainer";
+import { useEffect, useState } from "react";
 
 const Header = styled.header`
   display: flex;
   justify-content: space-between;
   border-bottom: 1px solid #d10000;
+  flex-wrap: wrap;
+  @media (max-width: 900px) {
+    flex-direction: column;
+    //display: none;
+  }
 `;
 
 const StyledH1 = styled.h1`
@@ -17,6 +23,11 @@ const StyledH1 = styled.h1`
 
 const Nav = styled.ul`
   display: flex;
+  @media (max-width: 900px) {
+    flex-direction: column;
+    display: ${(props) => (props.selected ? "none" : "flex")};
+    //display: none;
+  }
 `;
 
 const NavText = styled.li`
@@ -25,6 +36,9 @@ const NavText = styled.li`
   transition: transform 0.1s ease-in-out;
   user-select: none;
   transform: ${(props) => (props.selected ? "translateY(-15px)" : "none")};
+  @media (max-width: 900px) {
+    transform: translateY(0);
+  }
 `;
 
 const NavItem = styled(Link)`
@@ -40,22 +54,74 @@ const NavItem = styled(Link)`
       transform: translateY(-15px);
     }
   }
+  @media (max-width: 900px) {
+    background-color: white;
+    &:hover {
+      background-color: #ffffff;
+      &:hover > .nav-text {
+        transform: translateY(0);
+      }
+    }
+  }
 `;
 
 const StyledLink = styled(Link)`
   all: unset;
 `;
 
+const TheHamburglarContainer = styled.div`
+  display: none;
+  @media (max-width: 900px) {
+    padding: 20px 10px 17px;
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+    justify-content: space-between;
+  }
+`;
+
+const TheHamburglerBarz = styled.div`
+  width: 38px;
+  height: 4px;
+  background-color: #d10000;
+  border-radius: 3px;
+`;
+
+const MobileHeader = styled.div`
+  display: flex;
+  justify-content: space-between;
+  @media (max-width: 900px) {
+    width: 100%;
+  }
+`;
+
 const StyledHeader = () => {
   const location = useLocation();
+  const [showNav, setShowNav] = useState(false);
+
+  const togleShowNav = () => {
+    setShowNav(!showNav);
+  };
+
+  useEffect(() => {
+    setShowNav(true);
+  }, [location]);
 
   return (
     <WidthContainer>
       <Header>
-        <StyledLink to="/">
-          <StyledH1>Johnny Bakaas</StyledH1>
-        </StyledLink>
-        <Nav>
+        <MobileHeader>
+          <StyledLink to="/">
+            <StyledH1>Johnny Bakaas</StyledH1>
+          </StyledLink>
+          <TheHamburglarContainer onClick={togleShowNav}>
+            <TheHamburglerBarz />
+            <TheHamburglerBarz />
+            <TheHamburglerBarz />
+          </TheHamburglarContainer>
+        </MobileHeader>
+
+        <Nav selected={showNav}>
           <NavItem
             to="/ferdigheter"
             selected={location.pathname === "/ferdigheter"}

@@ -12,14 +12,24 @@ const StyledSVG = styled.img`
   margin-top: 20px;
   margin-right: 30px;
   user-select: none;
+  @media (max-width: 1300px) {
+    margin: 20px;
+  }
 `;
 
 const StyledSVGWid = styled(StyledSVG)`
   margin-right: 0px;
+  @media (max-width: 1300px) {
+    margin: 20px;
+  }
 `;
 
 const StyledProgramingLogos = styled.div`
   display: flex;
+  @media (max-width: 1300px) {
+    flex-wrap: wrap;
+    justify-content: center;
+  }
 `;
 
 const ProgramingLogos = () => {
