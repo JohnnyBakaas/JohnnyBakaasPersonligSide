@@ -86,13 +86,16 @@ Error generating stack: `+i.message+`
   flex-wrap: wrap;
   @media (max-width: 900px) {
     flex-direction: column;
-    //display: none;
   }
 `,av=B.h1`
   font-size: 40px;
   padding: 10px;
+  padding-right: 0px;
   user-select: none;
   cursor: pointer;
+  @media (max-width: 370px) {
+    font-size: 38px;
+  }
 `,cv=B.ul`
   display: flex;
   @media (max-width: 900px) {
