@@ -10,15 +10,18 @@ const Header = styled.header`
   flex-wrap: wrap;
   @media (max-width: 900px) {
     flex-direction: column;
-    //display: none;
   }
 `;
 
 const StyledH1 = styled.h1`
   font-size: 40px;
   padding: 10px;
+  padding-right: 0px;
   user-select: none;
   cursor: pointer;
+  @media (max-width: 370px) {
+    font-size: 38px;
+  }
 `;
 
 const Nav = styled.ul`
