@@ -25,7 +25,7 @@ const MyFirstArticleImgae = styled(ArticleImageParent)`
   }
 `;
 
-const Portfolio = () => {
+const Blog = () => {
   return (
     <ContentContainer>
       <StyledArticleContainerLink to={`/portefolje/0`}>
@@ -49,4 +49,4 @@ const Portfolio = () => {
   );
 };
 
-export default Portfolio;
+export default Blog;

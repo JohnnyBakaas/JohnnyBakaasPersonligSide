@@ -134,15 +134,12 @@ const StyledHeader = () => {
             </NavText>
           </NavItem>
 
-          <NavItem
-            to="/portefolje"
-            selected={location.pathname === "/portefolje"}
-          >
+          <NavItem to="/blog" selected={location.pathname === "/blog"}>
             <NavText
               className="nav-text"
-              selected={location.pathname === "/portefolje"}
+              selected={location.pathname === "/blog"}
             >
-              Portefølje
+              Blog
             </NavText>
           </NavItem>
 

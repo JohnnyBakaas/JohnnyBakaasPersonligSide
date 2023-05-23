@@ -6,7 +6,7 @@ import AboutMe from "./components/AboutMe";
 import StyledFooter from "./components/StyledFooter";
 import TakeContact from "./components/TakeContact";
 import Home from "./components/Home";
-import Portfolio from "./components/Portfolio";
+import Blog from "./components/Blog";
 import Article from "./components/Article";
 
 function App() {
@@ -17,7 +17,7 @@ function App() {
         <Route path="/" element={<Home />} />
         <Route path="/ferdigheter" element={<Skills />} />
         <Route path="/ta-kontakt" element={<TakeContact />} />
-        <Route path="/portefolje" element={<Portfolio />} />
+        <Route path="/blog" element={<Blog />} />
         <Route path="/portefolje/:articleId" element={<Article />} />
         <Route path="/om-meg" element={<AboutMe />} />
       </Routes>
