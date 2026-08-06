@@ -124,7 +124,7 @@ function Header() {
       <div className="header-inner">
         <a className="brand" href="#top" onClick={closeMenu} aria-label="Johnny Bakaas – til toppen">
           <span>Johnny Bakaas</span>
-          <small>Operativ teknologiledelse</small>
+          <small>Automatisering · Teknologiledelse</small>
         </a>
 
         <button
@@ -160,10 +160,10 @@ function Hero() {
   return (
     <section className="hero section-frame" id="top">
       <div className="hero-main">
-        <p className="eyebrow"><span />Teknologi som merkes på driften</p>
+        <p className="eyebrow"><span />Automatisering og systemutvikling som merkes på driften</p>
         <h1>Voks uten å <em>ansette deg i hjel.</em></h1>
         <p className="hero-lead">
-          Jeg går inn i operative virksomheter, finner de dyreste manuelle arbeidsflytene og bygger systemene som fjerner dem.
+          Jeg hjelper norske operative virksomheter med automatisering og skreddersydd systemutvikling. Jeg finner de dyreste manuelle arbeidsflytene og bygger systemene som fjerner dem.
         </p>
         <div className="hero-actions">
           <a className="button button-primary" href="#kontakt">
@@ -230,7 +230,7 @@ function Offer() {
         <p className="eyebrow"><span />90 dager operativ teknologiledelse</p>
         <h2 id="offer-title">En teknologileder før du trenger en utviklingsavdeling.</h2>
         <p>
-          Jeg tar ansvar fra utydelig problem til løsning i produksjon. Du får én person som kan forstå driften, ta tekniske valg, bygge systemet og snakke med menneskene som skal bruke det.
+          Som operativ teknologipartner tar jeg ansvar fra utydelig problem til løsning i produksjon. Du får én person som kan forstå driften, ta tekniske valg, bygge systemet og snakke med menneskene som skal bruke det.
         </p>
         <ul className="deliverables">
           {deliverables.map((item) => (
@@ -412,7 +412,7 @@ function Footer() {
   return (
     <footer className="site-footer content-width">
       <p>© {new Date().getFullYear()} Johnny Bakaas</p>
-      <p>Systemer som skaper kapasitet.</p>
+      <p>Automatisering som skaper kapasitet.</p>
       <a href="#top">Til toppen ↑</a>
     </footer>
   );
