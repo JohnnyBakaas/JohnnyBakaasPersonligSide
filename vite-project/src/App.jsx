@@ -4,14 +4,14 @@ import "./App.css";
 const cases = [
   {
     status: "I produksjon",
-    name: "Alkolås",
+    name: "Alkolås.no",
     title: "Fra forsømt bestillingsskjema til en plattform hele driften bruker.",
     summary:
       "Jeg tok eierskap til frontend, design og brukerflyt i et system som nå kobler sammen salg, kunder, lager og verksted – på mobil, nettbrett og PC.",
     facts: [
       "Total omskriving av frontend",
       "6–7 sammenhengende arbeidsflyter",
-      "25+ bilder kan dokumentere én montering",
+      "Over 25 forskjellige sider på tvers av arbeidsflytene",
       "Bygget for videreutvikling, ikke bare første bestilling",
     ],
     result:
@@ -35,9 +35,10 @@ const cases = [
   {
     status: "Teknisk feilsøking",
     name: "FMC650 / DDD",
-    title: "En firmwarefeil frøs posisjonen på 10–20 kjøretøy. Jeg fant årsaken og stoppet den.",
+    title:
+      "En firmwarefeil frøs posisjonen på stadig flere kjøretøy. Jeg fant årsaken før hele flåten ble rammet.",
     summary:
-      "Etter systematisk feilsøking identifiserte jeg at GNSS-modulen ikke våknet etter sleep. Jeg endret konfigurasjonen og rullet løsningen ut.",
+      "Da 10–20 kjøretøy allerede var berørt og antallet økte hver uke, identifiserte jeg at GNSS-modulen ikke våknet etter sleep. Jeg endret konfigurasjonen og rullet løsningen ut.",
     facts: [
       "Ansvar i pre-launch-fasen",
       "Teltonika, Flespi og fjernkommandoer",
@@ -48,11 +49,11 @@ const cases = [
       "GNSS-problemet forsvant på alle berørte kjøretøy uten merkbar praktisk ulempe.",
   },
   {
-    status: "Under utvikling",
-    name: "TeoriMentor",
-    title: "Et fullverdig opplæringssystem utviklet på noen få ukers faktisk arbeidstid.",
+    status: "Under utvikling · ikke lansert",
+    name: "Læringsplattform for føreropplæring",
+    title: "En regulert læringsplattform utviklet på noen få ukers faktisk arbeidstid.",
     summary:
-      "Jeg har totalansvar for arkitektur, teknologivalg, design, utvikling og avklaringer med dem som skal bruke produktet.",
+      "Jeg har totalansvar for arkitektur, teknologivalg, design, utvikling og avklaringer med dem som skal bruke produktet. Løsningen må godkjennes av Statens vegvesen før lansering.",
     facts: [
       "Elev, lærer og administrator",
       "Kurs, forum, oppgaver og tidskontroll",
