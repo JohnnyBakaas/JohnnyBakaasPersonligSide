@@ -67,33 +67,33 @@ const cases = [
 
 const offerSteps = [
   {
-    days: "Dag 1–10",
-    title: "Finn flaskehalsen",
-    text: "Jeg følger arbeidet der det faktisk skjer, måler dagens tidsbruk og velger prosessen med størst gevinstpotensial.",
+    days: "Dag 1",
+    title: "Avgrens og mål",
+    text: "Vi velger én arbeidsflyt, blir enige om hva løsningen skal gjøre og måler hva prosessen koster i dag.",
   },
   {
-    days: "Dag 11–30",
-    title: "Bygg første løsning",
-    text: "Vi setter én brukbar løsning i produksjon tidlig. Ingen lang utredningsfase før noen får verdi.",
+    days: "Dag 2–4",
+    title: "Bygg løsningen",
+    text: "Jeg bygger den minste fungerende løsningen som kan fjerne reelt manuelt arbeid – uten en lang utredningsfase.",
   },
   {
-    days: "Dag 31–60",
-    title: "Få den inn i driften",
-    text: "Løsningen tilpasses virkelige brukere, kobles til resten av flyten og gjøres robust nok for arbeidsdagen.",
+    days: "Dag 5–6",
+    title: "Test mot virkeligheten",
+    text: "Løsningen prøves med realistiske data og justeres mot menneskene, unntakene og kravene som finnes i driften.",
   },
   {
-    days: "Dag 61–90",
-    title: "Mål og skaler",
-    text: "Vi sammenligner mot utgangspunktet, dokumenterer effekten og bestemmer hva som fortjener neste investering.",
+    days: "Dag 7 og videre",
+    title: "Lever, mål og skaler",
+    text: "Dere får en fungerende pilot og en tydelig gevinstmodell. Hvis resultatet forsvarer det, tar jeg den videre til produksjon, flere arbeidsflyter eller et større teknologimandat.",
   },
 ];
 
 const deliverables = [
-  "Kart over de dyreste manuelle arbeidsflytene",
-  "Første produksjonsklare løsning innen 30 dager",
-  "Målemodell avtalt før utviklingen starter",
-  "Teknisk arkitektur som tåler neste steg",
-  "Dokumentasjon, tilgang og opplæring ved overlevering",
+  "Én tydelig avgrenset arbeidsflyt",
+  "Fungerende og testbar løsning på sju dager",
+  "Målemodell avtalt før jeg bygger",
+  "Dokumentert gevinstpotensial",
+  "Plan for produksjon, drift og neste investering",
 ];
 
 function ArrowIcon() {
@@ -164,7 +164,7 @@ function Hero() {
         <p className="eyebrow"><span />Automatisering og systemutvikling som merkes på driften</p>
         <h1>Voks uten å <em>ansette deg i hjel.</em></h1>
         <p className="hero-lead">
-          Jeg hjelper norske operative virksomheter med automatisering og skreddersydd systemutvikling. Jeg finner de dyreste manuelle arbeidsflytene og bygger systemene som fjerner dem.
+          Jeg hjelper norske operative virksomheter med automatisering og skreddersydd systemutvikling. Vi starter med én dyr manuell arbeidsflyt og en fungerende løsning på sju dager – og skalerer samarbeidet når resultatene forsvarer det.
         </p>
         <div className="hero-actions">
           <a className="button button-primary" href="#kontakt">
@@ -175,16 +175,16 @@ function Hero() {
 
         <dl className="hero-metrics">
           <div>
-            <dt>30 dager</dt>
-            <dd>til første system</dd>
+            <dt>7 dager</dt>
+            <dd>til fungerende pilot</dd>
           </div>
           <div>
-            <dt>90 dager</dt>
-            <dd>til målbar effekt</dd>
+            <dt>Én flaskehals</dt>
+            <dd>tydelig avgrenset</dd>
           </div>
           <div>
-            <dt>Resultatbasert</dt>
-            <dd>vi deler på verdien</dd>
+            <dt>Skalerbart</dt>
+            <dd>fra sprint til teknologipartner</dd>
           </div>
         </dl>
       </div>
@@ -228,16 +228,19 @@ function Offer() {
     <section className="offer-section section-frame" id="tilbudet" aria-labelledby="offer-title">
       <div className="offer-intro">
         <div className="section-number">02 / Tilbudet</div>
-        <p className="eyebrow"><span />90 dager operativ teknologiledelse</p>
-        <h2 id="offer-title">En teknologileder før du trenger en utviklingsavdeling.</h2>
+        <p className="eyebrow"><span />7-dagers automatiseringssprint</p>
+        <h2 id="offer-title">Start lite. Bevis verdien. Bygg større.</h2>
         <p>
-          Som operativ teknologipartner tar jeg ansvar fra utydelig problem til løsning i produksjon. Du får én person som kan forstå driften, ta tekniske valg, bygge systemet og snakke med menneskene som skal bruke det.
+          Sprinten er den raske inngangen: én arbeidsflyt, én fungerende løsning og et målbart resultat. Der potensialet er større, kan jeg ta ansvar videre for produksjonssetting, integrasjoner, flere systemer og løpende teknologiledelse.
         </p>
         <ul className="deliverables">
           {deliverables.map((item) => (
             <li key={item}><CheckIcon /><span>{item}</span></li>
           ))}
         </ul>
+        <p className="sprint-note">
+          Sju dager regnes fra arbeidsflyten er avgrenset og nødvendige data og tilganger er på plass. Avhengigheter hos eksterne leverandører kan påvirke tidspunktet for produksjonssetting.
+        </p>
       </div>
 
       <div className="offer-timeline">
@@ -316,7 +319,7 @@ function Pricing() {
         <p className="eyebrow"><span />Interessene våre skal peke samme vei</p>
         <h2 id="pricing-title">Pris som følger verdien – ikke antall timer.</h2>
         <p className="pricing-lead">
-          En avtalt grunnpris dekker kartlegging og bygging. Deretter tar jeg 50 % av den dokumenterte besparelsen de første tre månedene. Vi bestemmer målemetoden før jeg skriver kode.
+          En avgrenset sprint har en avtalt grunnpris, normalt fra 25 000 kroner. Når løsningen skaper dokumentert besparelse, tar jeg 50 % av gevinsten de første tre månedene. Vi bestemmer målemetoden og et pristak før jeg bygger.
         </p>
 
         <div className="formula" aria-label="Slik beregnes besparelsen">
@@ -328,27 +331,27 @@ function Pricing() {
         </div>
 
         <p className="pricing-note">
-          Tidsbruk, volum, lønnskostnad og eventuelle systemkostnader inngår i en enkel baseline begge parter godkjenner. Ingen gevinst på papiret. Bare effekt som faktisk kan etterprøves.
+          Tidsbruk, volum, lønnskostnad og systemkostnader inngår i en enkel baseline begge parter godkjenner. Produksjonssetting, større integrasjoner og et videre teknologimandat avtales separat når sprinten har vist hva som er verdt å investere i.
         </p>
       </div>
 
       <aside className="support-panel" aria-labelledby="support-title">
-        <p className="aside-label">Etter lansering</p>
-        <h3 id="support-title">Du blir ikke stående alene med systemet.</h3>
+        <p className="aside-label">Samarbeidsmodell</p>
+        <h3 id="support-title">Faste kontaktpunkter. Tydelig ansvar.</h3>
         <div className="support-item">
-          <span>Inkludert</span>
-          <h4>Overlevering</h4>
-          <p>Dokumentasjon, tilganger, opplæring og en tydelig plan for hvem som eier hva.</p>
+          <span>I sprinten</span>
+          <h4>Konsentrert levering</h4>
+          <p>Kickoff, asynkront utviklingsarbeid og en avtalt demonstrasjon. Lite møtetid, tydelig fremdrift.</p>
         </div>
         <div className="support-item">
-          <span>Ved behov</span>
-          <h4>Løpende support</h4>
-          <p>Fast avtale for overvåking, feilretting og mindre forbedringer – med avtalt responstid.</p>
+          <span>Etter levering</span>
+          <h4>Avtalt support</h4>
+          <p>Support via e-post med svar neste virkedag. Kritiske systemer krever en egen driftsavtale med passende beredskap.</p>
         </div>
         <div className="support-item">
-          <span>Når det lønner seg</span>
-          <h4>Videre utvikling</h4>
-          <p>Ny kapasitet kjøpes først når dataene viser at neste investering er verdt det.</p>
+          <span>Når verdien er bevist</span>
+          <h4>Større samarbeid</h4>
+          <p>Videreutvikling, flere prosesser eller løpende ansvar som operativ teknologipartner – uten å starte på nytt med en ny leverandør.</p>
         </div>
       </aside>
     </section>
@@ -376,24 +379,24 @@ function About() {
 }
 
 function Contact() {
-  const mailSubject = encodeURIComponent("Den verste manuelle prosessen vår");
+  const mailSubject = encodeURIComponent("Kandidat til en 7-dagers sprint");
   const mailBody = encodeURIComponent(
-    "Hei Johnny,\n\nProsessen vi vil forbedre er:\n\nI dag bruker vi omtrent:\n\nDette skaper problemer fordi:\n\nMvh\n"
+    "Hei Johnny,\n\nProsessen vi vil forbedre er:\n\nI dag bruker vi omtrent:\n\nDette skaper problemer fordi:\n\nSystemene eller dataene som er involvert er:\n\nMvh\n"
   );
 
   return (
     <section className="contact-section section-frame" id="kontakt" aria-labelledby="contact-title">
       <div className="contact-main">
         <p className="eyebrow"><span />Start med problemet</p>
-        <h2 id="contact-title">Send meg prosessen alle på jobb klager på.</h2>
+        <h2 id="contact-title">Vis meg den verste prosessen. Om én uke vet vi hva som er mulig.</h2>
         <p>
-          Du trenger ikke en kravspesifikasjon. Fortell meg hva som tar tid, hvem som gjør det og hvor ofte det skjer. Så finner vi ut om det er verdt å bygge noe.
+          Du trenger ikke en kravspesifikasjon. Fortell meg hva som tar tid, hvem som gjør det og hvor ofte det skjer. Hvis prosessen passer for en sprint, avgrenser vi den sammen – og lar resultatet avgjøre hvor stort samarbeidet bør bli.
         </p>
         <a
           className="button button-light"
           href={`mailto:Johnny@Bakaas-CadConsult.no?subject=${mailSubject}&body=${mailBody}`}
         >
-          Beskriv prosessen på e-post <ArrowIcon />
+          Søk om en 7-dagers sprint <ArrowIcon />
         </a>
       </div>
       <div className="contact-details">
