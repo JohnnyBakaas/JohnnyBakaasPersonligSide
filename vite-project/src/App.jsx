@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import "./App.css";
 
 const EMAIL = "Johnny@Bakaas-CadConsult.no";
@@ -270,7 +270,10 @@ function WeekCard({ activeTask, onSelect }) {
       <ul>
         {weekTasks.map((item, index) => {
           const order = item.marked ? markIndex++ : null;
-          const classes = [item.marked && "is-marked", index === activeTask && "is-active"]
+          const classes = [
+            item.marked ? "is-marked" : "is-job",
+            index === activeTask && "is-active",
+          ]
             .filter(Boolean)
             .join(" ");
           const content = (
@@ -305,7 +308,10 @@ function WeekCard({ activeTask, onSelect }) {
           );
         })}
       </ul>
-      <figcaption>Markert: forarbeid AI kan ta unna. Resten er jobben.</figcaption>
+      <figcaption>
+        <span className="key key-ai">Gult</span> forarbeid AI kan ta unna.{" "}
+        <span className="key key-job">Blått</span> jobben.
+      </figcaption>
     </figure>
   );
 }
@@ -389,16 +395,18 @@ function Hero() {
   return (
     <section className="hero" id="top">
       <div className="wrap hero-inner" {...pauseHandlers}>
+        <h1 className="rotating hero-title">
+          <span className="visually-hidden">
+            AI-konsulent: mindre tid på gjentakende arbeid, mer tid på jobben.
+          </span>
+          <span className="hero-line" aria-hidden="true">
+            Mindre tid på å <mark key={`less-${index}`}>{pair.less}</mark>.
+          </span>
+          <span className="hero-line" aria-hidden="true">
+            Mer tid på å <mark key={`more-${index}`} className="is-second is-job">{pair.more}</mark>.
+          </span>
+        </h1>
         <div className="hero-copy">
-          <h1 className="rotating hero-title">
-            <span className="visually-hidden">
-              AI-konsulent: mindre tid på gjentakende arbeid, mer tid på jobben.
-            </span>
-            <span aria-hidden="true">
-              Mindre tid på å <mark key={`less-${index}`}>{pair.less}</mark>.{" "}
-              Mer tid på å <mark key={`more-${index}`} className="is-second">{pair.more}</mark>.
-            </span>
-          </h1>
           <p className="lead">
             Jeg er AI-konsulent og bygger løsninger som tar unna gjentakende oppgaver i salg, kundeservice, økonomi og drift. Vi finner flaskehalsen, bygger en pilot og vurderer verdien før vi utvider.
           </p>
@@ -432,7 +440,49 @@ function Intro() {
   );
 }
 
+// The rail fill runs ahead of the reader: its tip starts at the middle of
+// the screen and drifts down to 85 % of the screen by the end of the flow.
+function useRailFill() {
+  const ref = useRef(null);
+
+  useEffect(() => {
+    const flow = ref.current;
+    if (!flow) return;
+    let frame = 0;
+
+    const update = () => {
+      frame = 0;
+      const vh = window.innerHeight;
+      const rect = flow.getBoundingClientRect();
+      const span = rect.height - vh * 0.35;
+      const progress = Math.min(1, Math.max(0, (vh * 0.5 - rect.top) / span));
+      const reach = progress * rect.height;
+      flow.style.setProperty("--fill", progress.toFixed(4));
+      for (const item of flow.children) {
+        item.classList.toggle("is-reached", item.offsetTop + 14 <= reach);
+      }
+    };
+
+    const schedule = () => {
+      if (!frame) frame = window.requestAnimationFrame(update);
+    };
+
+    update();
+    window.addEventListener("scroll", schedule, { passive: true });
+    window.addEventListener("resize", schedule);
+    return () => {
+      window.cancelAnimationFrame(frame);
+      window.removeEventListener("scroll", schedule);
+      window.removeEventListener("resize", schedule);
+    };
+  }, []);
+
+  return ref;
+}
+
 function Case() {
+  const flowRef = useRailFill();
+
   return (
     <section className="case" id="eksempel" aria-labelledby="case-title">
       <div className="wrap">
@@ -451,7 +501,7 @@ function Case() {
           </div>
         </div>
 
-        <ol className="flow">
+        <ol className="flow" ref={flowRef}>
           {caseParts.map(({ title, body, Artifact }) => (
             <li key={title}>
               <div className="flow-text">
@@ -470,6 +520,23 @@ function Case() {
           <p>
             I en tidlig prototype skulle en selger kvalitetssikre 13 leads mot Brønnøysundregistrene, økonomi og sosiale medier. Manuelt tar det en arbeidsdag. Den AI-assisterte arbeidsflyten gjorde det på litt over fem minutter.
           </p>
+          <dl className="proof-bars">
+            <div>
+              <dt>Manuelt</dt>
+              <dd>
+                <i style={{ "--size": "100%" }}>
+                  <span>ca. 8 timer</span>
+                </i>
+              </dd>
+            </div>
+            <div>
+              <dt>Med AI</dt>
+              <dd>
+                <i style={{ "--size": "1.1%" }} />
+                <span>litt over 5 minutter</span>
+              </dd>
+            </div>
+          </dl>
         </div>
 
         <div className="case-outro">
@@ -514,7 +581,7 @@ function RotatingQuestion() {
       <span aria-hidden="true">
         Hvor mye arbeid gjør{" "}
         <mark key={`who-${index}`}>{who}</mark> deres før de er klare til å{" "}
-        <mark key={`what-${index}`} className="is-second">{what}</mark>?
+        <mark key={`what-${index}`} className="is-second is-job">{what}</mark>?
       </span>
     </h2>
   );

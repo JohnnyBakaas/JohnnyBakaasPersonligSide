@@ -5,6 +5,9 @@
   --muted: #51626d;
   --rule: #bfcad1;
   --marker: #f3d54e;
+  --marker-job: #a9d6ee;
+  --stroke-ai: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 200 40' preserveAspectRatio='none'%3E%3Cpath d='M7 7 C45 3 95 6 140 4 S186 3 198 6 L194 33 C150 37 104 33 62 36 S16 38 1 35 Z' fill='%23f3d54e'/%3E%3Cpath d='M3 12 C60 9 120 12 196 9 L197 15 C130 17 70 14 4 17 Z' fill='%23e8c53a' fill-opacity='.55'/%3E%3C/svg%3E");
+  --stroke-job: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 200 40' preserveAspectRatio='none'%3E%3Cpath d='M7 7 C45 3 95 6 140 4 S186 3 198 6 L194 33 C150 37 104 33 62 36 S16 38 1 35 Z' fill='%23a9d6ee'/%3E%3Cpath d='M3 12 C60 9 120 12 196 9 L197 15 C130 17 70 14 4 17 Z' fill='%238cc4e4' fill-opacity='.55'/%3E%3C/svg%3E");
   --ink-raised: #1f3442;
   --on-ink: #e4e9ec;
   --on-ink-muted: #9fb1bc;
