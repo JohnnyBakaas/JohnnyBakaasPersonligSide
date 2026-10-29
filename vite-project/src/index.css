@@ -1,7 +1,20 @@
 :root {
-  font-family: "IBM Plex Sans", Arial, sans-serif;
-  color: #f7f2f8;
-  background: #0b0810;
+  --bg: #e4e9ec;
+  --surface: #f7f9fa;
+  --ink: #14232d;
+  --muted: #51626d;
+  --rule: #bfcad1;
+  --marker: #f3d54e;
+  --ink-raised: #1f3442;
+  --on-ink: #e4e9ec;
+  --on-ink-muted: #9fb1bc;
+  --on-ink-rule: rgba(228, 233, 236, 0.16);
+
+  font-family: "Schibsted Grotesk", "Helvetica Neue", Arial, sans-serif;
+  font-size: 106.25%;
+  line-height: 1.6;
+  color: var(--ink);
+  background: var(--bg);
   font-synthesis: none;
   text-rendering: optimizeLegibility;
   -webkit-font-smoothing: antialiased;
@@ -14,31 +27,27 @@
 
 html {
   scroll-behavior: smooth;
-  scroll-padding-top: 88px;
+  scroll-padding-top: 80px;
 }
 
 body {
   min-width: 320px;
   margin: 0;
-  background: #0b0810;
 }
 
-button,
-a {
-  font: inherit;
-}
-
+a,
 button {
+  font: inherit;
   color: inherit;
 }
 
-a {
-  color: inherit;
+:focus-visible {
+  outline: 3px solid var(--ink);
+  outline-offset: 3px;
 }
 
 ::selection {
-  color: #0b0810;
-  background: #d4a66d;
+  background: var(--marker);
 }
 
 @media (prefers-reduced-motion: reduce) {
@@ -49,7 +58,8 @@ a {
   *,
   *::before,
   *::after {
-    scroll-behavior: auto !important;
+    animation-duration: 0.01ms !important;
+    animation-delay: 0ms !important;
     transition-duration: 0.01ms !important;
   }
 }

@@ -1,156 +1,374 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import "./App.css";
 
-const cases = [
-  {
-    status: "I produksjon",
-    name: "Alkolås.no",
-    title: "Fra forsømt bestillingsskjema til en plattform hele driften bruker.",
-    summary:
-      "Jeg tok eierskap til frontend, design og brukerflyt i et system som nå kobler sammen salg, kunder, lager og verksted – på mobil, nettbrett og PC.",
-    facts: [
-      "Total omskriving av frontend",
-      "6–7 sammenhengende arbeidsflyter",
-      "Over 25 forskjellige sider på tvers av arbeidsflytene",
-      "Bygget for videreutvikling, ikke bare første bestilling",
-    ],
-    result:
-      "Mindre manuelt arbeid, færre tapte data og en tryggere vei fra bestilling til montering og vedlikehold.",
-  },
-  {
-    status: "I produksjon",
-    name: "Mentor.no",
-    title: "Store kjørerapporter gikk fra flere minutters venting til å føles umiddelbare.",
-    summary:
-      "Jeg har bygget kart, livevisning og historisk avspilling, strukturert frontendarkitekturen og løst ytelsesproblemer i store datamengder.",
-    facts: [
-      "Live telemetri og historisk avspilling",
-      "Virtualisert rendering av store rapporter",
-      "Design- og komponentsystem etter tre redesign",
-      "Autentisering og tilgangskontroll med Kinde",
-    ],
-    result:
-      "Kunder får tilgang til store datamengder uten at grensesnittet oppleves tregt eller uoversiktlig.",
-  },
-  {
-    status: "Teknisk feilsøking",
-    name: "FMC650 / DDD",
-    title:
-      "En firmwarefeil frøs posisjonen på stadig flere kjøretøy. Jeg fant årsaken før hele flåten ble rammet.",
-    summary:
-      "Da 10–20 kjøretøy allerede var berørt og antallet økte hver uke, identifiserte jeg at GNSS-modulen ikke våknet etter sleep. Jeg endret konfigurasjonen og rullet løsningen ut.",
-    facts: [
-      "Ansvar i pre-launch-fasen",
-      "Teltonika, Flespi og fjernkommandoer",
-      "Remote nedlasting av lovpålagte DDD-filer",
-      "Opplæring og feilsøking på tvers av plattformer",
-    ],
-    result:
-      "GNSS-problemet forsvant på alle berørte kjøretøy uten merkbar praktisk ulempe.",
-  },
-  {
-    status: "Under utvikling · ikke lansert",
-    name: "Læringsplattform for føreropplæring",
-    title: "En regulert læringsplattform utviklet på noen få ukers faktisk arbeidstid.",
-    summary:
-      "Jeg har totalansvar for arkitektur, teknologivalg, design, utvikling og avklaringer med dem som skal bruke produktet. Løsningen må godkjennes av Statens vegvesen før lansering.",
-    facts: [
-      "Elev, lærer og administrator",
-      "Kurs, forum, oppgaver og tidskontroll",
-      "Universell utforming for små skjermer og nedsatt syn",
-      "Next.js og Convex for høy utviklingsfart",
-    ],
-    result:
-      "Målet er å erstatte et kjøpt produkt, redusere kostnader og gi virksomheten full kontroll på egen løsning.",
-  },
+const EMAIL = "Johnny@Bakaas-CadConsult.no";
+
+const weekTasks = [
+  { area: "Salg", task: "Sjekke nye leads mot Brønnøysund og nettsider", marked: true },
+  { area: "Kundeservice", task: "Svare på de samme spørsmålene om leveringstid", marked: true },
+  { area: "Kundeservice", task: "Ringe kunden som var misfornøyd med monteringen" },
+  { area: "Økonomi", task: "Matche innkommende fakturaer mot bestillinger", marked: true },
+  { area: "Drift", task: "Legge inn ordre fra e-post i ordresystemet", marked: true },
+  { area: "Ledelse", task: "Planlegge neste kvartal med teamet" },
 ];
 
-const offerSteps = [
-  {
-    days: "Dag 1",
-    title: "Avgrens og mål",
-    text: "Vi velger én arbeidsflyt, blir enige om hva løsningen skal gjøre og måler hva prosessen koster i dag.",
-  },
-  {
-    days: "Dag 2–4",
-    title: "Bygg løsningen",
-    text: "Jeg bygger den minste fungerende løsningen som kan fjerne reelt manuelt arbeid – uten en lang utredningsfase.",
-  },
-  {
-    days: "Dag 5–6",
-    title: "Test mot virkeligheten",
-    text: "Løsningen prøves med realistiske data og justeres mot menneskene, unntakene og kravene som finnes i driften.",
-  },
-  {
-    days: "Dag 7 og videre",
-    title: "Lever, mål og skaler",
-    text: "Dere får en fungerende pilot og en tydelig gevinstmodell. Hvis resultatet forsvarer det, tar jeg den videre til produksjon, flere arbeidsflyter eller et større teknologimandat.",
-  },
+// Each pair points at the row in weekTasks it illustrates.
+const heroPairs = [
+  { less: "sjekke leads", more: "selge", task: 0 },
+  { less: "svare på det samme", more: "hjelpe kunden", task: 1 },
+  { less: "matche fakturaer", more: "styre økonomien", task: 3 },
+  { less: "taste inn ordre", more: "levere", task: 4 },
 ];
 
-const deliverables = [
-  "Én tydelig avgrenset arbeidsflyt",
-  "Fungerende og testbar løsning på sju dager",
-  "Målemodell avtalt før jeg bygger",
-  "Dokumentert gevinstpotensial",
-  "Plan for produksjon, drift og neste investering",
+const contactRoles = [
+  ["selgerne", "ta en god kundesamtale"],
+  ["kundebehandlerne", "svare kunden"],
+  ["prosjektlederne", "sende et tilbud"],
+  ["teknikerne", "dra ut på oppdrag"],
+  ["økonomiteamet", "sende fakturaen"],
+  ["rekruttererne", "kalle inn til intervju"],
 ];
 
-function ArrowIcon() {
+const prospects = [
+  {
+    name: "Sandviken Rør AS",
+    place: "Bergen",
+    size: "34 ansatte",
+    match: true,
+    reason: "Ny daglig leder fra august.",
+    sources: "Enhetsregisteret, firmaets nettside",
+  },
+  { name: "Kvamme Bygg og Anlegg AS", place: "Voss", size: "120 ansatte" },
+  {
+    name: "Haugland VVS AS",
+    place: "Stord",
+    size: "18 ansatte",
+    match: true,
+    reason: "Har åpnet ny avdeling i Haugesund.",
+    sources: "Enhetsregisteret, lokalavis",
+  },
+  { name: "Solheim Eiendom AS", place: "Bergen", size: "6 ansatte" },
+  {
+    name: "Vestrør Service AS",
+    place: "Førde",
+    size: "27 ansatte",
+    match: true,
+    reason: "Søker serviceleder.",
+    sources: "Enhetsregisteret, stillingsannonse",
+  },
+  { name: "Nordhordland Elektro AS", place: "Knarvik", size: "41 ansatte" },
+];
+
+function MarketArtifact() {
   return (
-    <svg viewBox="0 0 24 24" aria-hidden="true">
-      <path d="M5 12h14M13 6l6 6-6 6" />
-    </svg>
+    <div className="artifact artifact-market">
+      <div className="market-row">
+        <span>Bedrifter i området</span>
+        <strong>1 284</strong>
+        <i style={{ "--share": "100%" }} />
+      </div>
+      <div className="market-row">
+        <span>Riktig bransje og størrelse</span>
+        <strong>212</strong>
+        <i style={{ "--share": "16.5%" }} />
+      </div>
+      <div className="market-row is-key">
+        <span>Passer kundeprofilen</span>
+        <strong>37</strong>
+        <i style={{ "--share": "2.9%" }} />
+      </div>
+    </div>
   );
 }
 
-function CheckIcon() {
+function SignalArtifact() {
+  const signals = [
+    ["Ny daglig leder", "Sandviken Rør AS", "2 dager siden"],
+    ["Ny avdeling", "Haugland VVS AS", "1 uke siden"],
+    ["Stillingsannonse", "Vestrør Service AS", "1 uke siden"],
+  ];
   return (
-    <svg viewBox="0 0 24 24" aria-hidden="true">
-      <path d="m5 12 4 4L19 6" />
-    </svg>
+    <ul className="artifact artifact-signals">
+      {signals.map(([kind, company, when]) => (
+        <li key={company}>
+          <span className="signal-kind">{kind}</span>
+          <span>{company}</span>
+          <span className="artifact-quiet">{when}</span>
+        </li>
+      ))}
+    </ul>
+  );
+}
+
+function ProfileArtifact() {
+  return (
+    <div className="artifact artifact-profile">
+      <p className="artifact-title">Haugland VVS AS</p>
+      <p>
+        Rørlegger og ventilasjon for næringsbygg på Sunnhordland. 18 ansatte, vekst tre år på rad.<sup>1</sup> Åpnet avdeling i Haugesund i september.<sup>2</sup>
+      </p>
+      <p>
+        Daglig leder: Marit Haugland.<sup>1</sup>
+      </p>
+      <p className="profile-uncertain">Usikkert: innkjøpsansvarlig er ikke bekreftet.</p>
+      <ol className="profile-sources">
+        <li>Enhetsregisteret</li>
+        <li>Haugesunds Avis, 14. september</li>
+      </ol>
+    </div>
+  );
+}
+
+function AssignArtifact() {
+  const rows = [
+    ["Sandviken Rør AS", "KH", "Kari"],
+    ["Haugland VVS AS", "TS", "Thomas"],
+    ["Vestrør Service AS", "KH", "Kari"],
+  ];
+  return (
+    <ul className="artifact artifact-assign">
+      {rows.map(([company, initials, seller]) => (
+        <li key={company}>
+          <span>{company}</span>
+          <span className="seller">
+            <b aria-hidden="true">{initials}</b>
+            <span>{seller}</span>
+          </span>
+        </li>
+      ))}
+    </ul>
+  );
+}
+
+function FollowUpArtifact() {
+  return (
+    <ol className="artifact artifact-followup">
+      <li>
+        <span className="artifact-quiet">12. okt</span>
+        <p>Ringte Marit. Interessert, ba om tilbud i november.</p>
+      </li>
+      <li>
+        <span className="artifact-quiet">14. okt</span>
+        <p>Rettet telefonnummer til daglig leder.</p>
+      </li>
+      <li className="is-next">
+        <span>4. nov</span>
+        <p>Neste steg: send tilbud og følg opp.</p>
+      </li>
+    </ol>
+  );
+}
+
+function QueueArtifact() {
+  return (
+    <div className="artifact artifact-queue">
+      <p className="queue-ask">Hvem har ansvar for innkjøp hos Vestrør Service?</p>
+      <p className="queue-answer">
+        Driftssjef Ola Vestrheim, ifølge firmaets nettside. Lagret på bedriften.
+      </p>
+    </div>
+  );
+}
+
+const caseParts = [
+  {
+    title: "Fra et stort marked til relevante muligheter",
+    body: [
+      "Hva kjennetegner en god kunde for dere? Det kan være bransje, størrelse, geografi, måten bedriften jobber på eller andre forhold som gjør tilbudet deres relevant.",
+      "Kriteriene brukes til å finne og sortere potensielle kunder, både i eksisterende lister og i nye datakilder. Selgerne får et mer relevant utgangspunkt, med en forklaring på hvorfor en bedrift er interessant.",
+    ],
+    Artifact: MarketArtifact,
+  },
+  {
+    title: "Fange opp endringer som er verdt å undersøke",
+    body: [
+      "Nye bedrifter oppstår, virksomheter endrer retning og kontaktpersoner bytter rolle.",
+      "En løpende arbeidsflyt fanger opp slike endringer og vurderer dem mot kundeprofilen. Et signal er en grunn til å se nærmere på bedriften. Om det finnes et faktisk behov, må avklares med kunden.",
+    ],
+    Artifact: SignalArtifact,
+  },
+  {
+    title: "Et bedre grunnlag før første kontakt",
+    body: [
+      "AI samler informasjon fra tilgjengelige kilder og gjør den om til et lesbart bedriftsbilde: hva virksomheten gjør, aktuelle kontaktpersoner og forhold som kan være nyttige i en samtale.",
+      "Kilder og usikkerhet følger informasjonen, så selgeren kan kontrollere detaljene selv.",
+    ],
+    Artifact: ProfileArtifact,
+  },
+  {
+    title: "Informasjonen havner hos den som skal bruke den",
+    body: [
+      "En god kundeliste har liten verdi hvis den blir liggende i en mappe.",
+      "Aktuelle bedrifter går gjennom avtalte kvalitetskrav og fordeles til riktig selger. Det er tydelig hvem som følger opp hva.",
+    ],
+    Artifact: AssignArtifact,
+  },
+  {
+    title: "Orden mellom samtalene",
+    body: [
+      "Hva ble avtalt? Hvem skal kontaktes igjen? Når passer det å følge opp?",
+      "Kontaktresultater og neste steg gjør at arbeidet fortsetter der det slapp. Opplysninger selgeren har rettet, blir tatt vare på når ny informasjon kommer inn.",
+    ],
+    Artifact: FollowUpArtifact,
+  },
+  {
+    title: "Selgerne bestiller hjelpen de trenger",
+    body: [
+      "Noen ganger mangler bare et telefonnummer. Andre ganger trengs en grundigere undersøkelse før et viktig møte.",
+      "Spørsmålet sendes rett til en researchkø, og svaret lagres sammen med bedriften.",
+    ],
+    Artifact: QueueArtifact,
+  },
+];
+
+const steps = [
+  {
+    title: "Finn flaskehalsen",
+    text: "Vi velger én avgrenset oppgave som tar mye tid i hverdagen deres, og blir enige om hvordan vi måler om en løsning hjelper.",
+  },
+  {
+    title: "Bygg en pilot",
+    text: "Jeg bygger en fungerende løsning rundt oppgaven, tilpasset hvordan dere faktisk jobber, og tester den på ekte data.",
+  },
+  {
+    title: "Vurder før vi utvider",
+    text: "Vi ser på resultatet sammen. Gir piloten verdi, bygger vi videre. Gjør den ikke det, har dere brukt lite på å finne det ut.",
+  },
+];
+
+function useRotation(length, interval) {
+  const [index, setIndex] = useState(0);
+  const [paused, setPaused] = useState(false);
+  const [stopped, setStopped] = useState(false);
+
+  useEffect(() => {
+    if (paused || stopped || window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
+    const timer = window.setInterval(() => {
+      setIndex((current) => (current + 1) % length);
+    }, interval);
+    return () => window.clearInterval(timer);
+  }, [paused, stopped, length, interval]);
+
+  const pauseHandlers = {
+    onMouseEnter: () => setPaused(true),
+    onMouseLeave: () => setPaused(false),
+  };
+
+  return { index, setIndex, pauseHandlers, stop: () => setStopped(true) };
+}
+
+// eslint-disable-next-line react/prop-types
+function WeekCard({ activeTask, onSelect }) {
+  let markIndex = 0;
+
+  return (
+    <figure className="week" aria-label="Eksempel på oppgaver i en vanlig arbeidsuke">
+      <div className="week-head">
+        <p className="week-title">En vanlig uke</p>
+        <p className="week-hint">Velg en markert oppgave</p>
+      </div>
+      <ul>
+        {weekTasks.map((item, index) => {
+          const order = item.marked ? markIndex++ : null;
+          const classes = [item.marked && "is-marked", index === activeTask && "is-active"]
+            .filter(Boolean)
+            .join(" ");
+          const content = (
+            <>
+              <span className="week-area">{item.area}</span>
+              <span className="week-task">
+                <mark>{item.task}</mark>
+              </span>
+            </>
+          );
+          return (
+            <li
+              key={item.task}
+              className={classes || undefined}
+              style={item.marked ? { "--order": order } : undefined}
+            >
+              {item.marked ? (
+                <button
+                  type="button"
+                  className="week-row"
+                  aria-pressed={index === activeTask}
+                  onMouseEnter={() => onSelect(index)}
+                  onFocus={() => onSelect(index)}
+                  onClick={() => onSelect(index, true)}
+                >
+                  {content}
+                </button>
+              ) : (
+                <div className="week-row">{content}</div>
+              )}
+            </li>
+          );
+        })}
+      </ul>
+      <figcaption>Markert: forarbeid AI kan ta unna. Resten er jobben.</figcaption>
+    </figure>
+  );
+}
+
+function ProspectList() {
+  let matchIndex = 0;
+
+  return (
+    <figure className="prospects" aria-label="Eksempel på en sortert bedriftsliste">
+      <div className="prospects-head">
+        <p className="prospects-count">
+          <strong>3 nye</strong> verdt å kontakte denne uken
+        </p>
+        <p className="prospects-profile">
+          Rørleggerbedrifter, 10–50 ansatte, Vestland. Sortert fra 1 284 bedrifter.
+        </p>
+      </div>
+      <ul>
+        {prospects.map((item) => {
+          const order = item.match ? matchIndex++ : null;
+          return (
+            <li
+              key={item.name}
+              className={item.match ? "is-match" : undefined}
+              style={item.match ? { "--order": order } : undefined}
+            >
+              <div className="prospect-row">
+                <span className="prospect-name">
+                  <mark>{item.name}</mark>
+                </span>
+                <span className="prospect-place">{item.place}</span>
+                <span className="prospect-size">{item.size}</span>
+              </div>
+              {item.match && (
+                <div className="prospect-note">
+                  <p>{item.reason}</p>
+                  <p className="prospect-sources">Kilder: {item.sources}</p>
+                </div>
+              )}
+            </li>
+          );
+        })}
+      </ul>
+      <figcaption>Illustrasjon med oppdiktede bedrifter.</figcaption>
+    </figure>
   );
 }
 
 function Header() {
-  const [menuOpen, setMenuOpen] = useState(false);
-
-  const closeMenu = () => setMenuOpen(false);
-
   return (
     <header className="site-header">
-      <a className="skip-link" href="#main-content">
+      <a className="skip-link" href="#innhold">
         Hopp til innholdet
       </a>
-      <div className="header-inner">
-        <a className="brand" href="#top" onClick={closeMenu} aria-label="Johnny Bakaas – til toppen">
-          <span>Johnny Bakaas</span>
-          <small>Automatisering · Teknologiledelse</small>
+      <div className="wrap header-inner">
+        <a className="brand" href="#top">
+          Johnny Bakaas
+          <span>AI-konsulent</span>
         </a>
-
-        <button
-          className="menu-button"
-          type="button"
-          aria-expanded={menuOpen}
-          aria-controls="primary-navigation"
-          onClick={() => setMenuOpen((open) => !open)}
-        >
-          <span>{menuOpen ? "Lukk" : "Meny"}</span>
-          <span className="menu-lines" aria-hidden="true">
-            <i />
-            <i />
-          </span>
-        </button>
-
-        <nav
-          id="primary-navigation"
-          className={`primary-nav${menuOpen ? " is-open" : ""}`}
-          aria-label="Hovedmeny"
-        >
-          <a href="#tilbudet" onClick={closeMenu}>Tilbudet</a>
-          <a href="#resultater" onClick={closeMenu}>Resultater</a>
-          <a href="#pris" onClick={closeMenu}>Pris og support</a>
-          <a className="nav-contact" href="#kontakt" onClick={closeMenu}>Ta kontakt</a>
+        <nav aria-label="Hovedmeny">
+          <a className="nav-optional" href="#eksempel">Eksempel</a>
+          <a className="nav-optional" href="#arbeidsmate">Arbeidsmåte</a>
+          <a className="nav-contact" href="#kontakt">Ta kontakt</a>
         </nav>
       </div>
     </header>
@@ -158,267 +376,180 @@ function Header() {
 }
 
 function Hero() {
+  const { index, setIndex, pauseHandlers, stop } = useRotation(heroPairs.length, 3200);
+  const pair = heroPairs[index];
+
+  const selectTask = (task, pin = false) => {
+    const pairIndex = heroPairs.findIndex((item) => item.task === task);
+    if (pairIndex === -1) return;
+    setIndex(pairIndex);
+    if (pin) stop();
+  };
+
   return (
-    <section className="hero section-frame" id="top">
-      <div className="hero-main">
-        <p className="eyebrow"><span />Automatisering og systemutvikling som merkes på driften</p>
-        <h1>Voks uten å <em>ansette deg i hjel.</em></h1>
-        <p className="hero-lead">
-          Jeg hjelper norske operative virksomheter med automatisering og skreddersydd systemutvikling. Vi starter med én dyr manuell arbeidsflyt og en fungerende løsning på sju dager – og skalerer samarbeidet når resultatene forsvarer det.
-        </p>
-        <div className="hero-actions">
-          <a className="button button-primary" href="#kontakt">
-            Vis meg den verste prosessen <ArrowIcon />
-          </a>
-          <a className="text-link" href="#resultater">Se dokumenterte resultater</a>
+    <section className="hero" id="top">
+      <div className="wrap hero-inner" {...pauseHandlers}>
+        <div className="hero-copy">
+          <h1 className="rotating hero-title">
+            <span className="visually-hidden">
+              AI-konsulent: mindre tid på gjentakende arbeid, mer tid på jobben.
+            </span>
+            <span aria-hidden="true">
+              Mindre tid på å <mark key={`less-${index}`}>{pair.less}</mark>.{" "}
+              Mer tid på å <mark key={`more-${index}`} className="is-second">{pair.more}</mark>.
+            </span>
+          </h1>
+          <p className="lead">
+            Jeg er AI-konsulent og bygger løsninger som tar unna gjentakende oppgaver i salg, kundeservice, økonomi og drift. Vi finner flaskehalsen, bygger en pilot og vurderer verdien før vi utvider.
+          </p>
+          <div className="hero-actions">
+            <a className="button" href="#kontakt">Ta kontakt</a>
+            <a className="quiet-link" href="#eksempel">Se et eksempel</a>
+          </div>
         </div>
-
-        <dl className="hero-metrics">
-          <div>
-            <dt>7 dager</dt>
-            <dd>til fungerende pilot</dd>
-          </div>
-          <div>
-            <dt>Én flaskehals</dt>
-            <dd>tydelig avgrenset</dd>
-          </div>
-          <div>
-            <dt>Skalerbart</dt>
-            <dd>fra sprint til teknologipartner</dd>
-          </div>
-        </dl>
-      </div>
-
-      <aside className="hero-process" aria-label="Slik arbeider jeg">
-        <div>
-          <p className="aside-label">Slik skjer det</p>
-          <ol>
-            <li><span>01</span><p>Finn arbeidet som stjeler mest tid og kapasitet.</p></li>
-            <li><span>02</span><p>Bygg den minste løsningen som skaper reell effekt.</p></li>
-            <li><span>03</span><p>Mål resultatet før vi investerer videre.</p></li>
-          </ol>
-        </div>
-        <p className="aside-note">Ingen transformasjonsrapport. Et system folk faktisk bruker.</p>
-      </aside>
-    </section>
-  );
-}
-
-function Problem() {
-  return (
-    <section className="problem-section content-width" aria-labelledby="problem-title">
-      <div className="section-number">01 / Problemet</div>
-      <div className="problem-copy">
-        <h2 id="problem-title">Den neste ansettelsen er ikke alltid løsningen.</h2>
-        <p>
-          Når folk kopierer data mellom systemer, følger opp i regneark eller bruker dagen på oppgaver en maskin kan gjøre, er det prosessen som mangler kapasitet – ikke nødvendigvis teamet.
-        </p>
-      </div>
-      <div className="problem-signals" aria-label="Typiske tegn">
-        <p>«Sånn har vi alltid gjort det.»</p>
-        <p>«Bare én person vet hvordan.»</p>
-        <p>«Vi trenger egentlig én til.»</p>
+        <WeekCard activeTask={pair.task} onSelect={selectTask} />
       </div>
     </section>
   );
 }
 
-function Offer() {
+function Intro() {
   return (
-    <section className="offer-section section-frame" id="tilbudet" aria-labelledby="offer-title">
-      <div className="offer-intro">
-        <div className="section-number">02 / Tilbudet</div>
-        <p className="eyebrow"><span />7-dagers automatiseringssprint</p>
-        <h2 id="offer-title">Start lite. Bevis verdien. Bygg større.</h2>
-        <p>
-          Sprinten er den raske inngangen: én arbeidsflyt, én fungerende løsning og et målbart resultat. Der potensialet er større, kan jeg ta ansvar videre for produksjonssetting, integrasjoner, flere systemer og løpende teknologiledelse.
-        </p>
-        <ul className="deliverables">
-          {deliverables.map((item) => (
-            <li key={item}><CheckIcon /><span>{item}</span></li>
+    <section className="intro" aria-labelledby="intro-title">
+      <div className="wrap intro-inner">
+        <div className="intro-copy">
+          <h2 id="intro-title">Mye av arbeidet skjer før den egentlige jobben.</h2>
+          <p className="lead">
+            Finne, undersøke, kontrollere, sammenstille og huske. Det er sjelden selve jobben, men det må gjøres før jobben kan gjøres godt.
+          </p>
+          <p className="lead">
+            Ta salg som eksempel. Før en selger kan ringe, må noen finne ut hvem det er verdt å ringe, og hvorfor.
+          </p>
+        </div>
+        <ProspectList />
+      </div>
+    </section>
+  );
+}
+
+function Case() {
+  return (
+    <section className="case" id="eksempel" aria-labelledby="case-title">
+      <div className="wrap">
+        <div className="case-head">
+          <div>
+            <p className="kicker">Eksempel fra et prosjekt</p>
+            <h2 id="case-title">Salgsarbeidet før første kundesamtale</h2>
+          </div>
+          <div className="case-lede">
+            <p>
+              Mye av salgsarbeidet skjer før noen snakker med kunden. Finne aktuelle bedrifter, undersøke hva de driver med, finne riktig kontaktperson, kontrollere gamle opplysninger, prioritere og huske hvem som skulle følges opp. Hver oppgave er overkommelig. Samlet tar de mye tid.
+            </p>
+            <p>
+              Jeg bygger løsninger som kobler dette sammen, med AI til å undersøke, sammenstille og klargjøre informasjon underveis. Tilpasset hva bedriften selger, hvem den vil nå og hvordan selgerne faktisk jobber.
+            </p>
+          </div>
+        </div>
+
+        <ol className="flow">
+          {caseParts.map(({ title, body, Artifact }) => (
+            <li key={title}>
+              <div className="flow-text">
+                <h3>{title}</h3>
+                {body.map((paragraph) => (
+                  <p key={paragraph}>{paragraph}</p>
+                ))}
+              </div>
+              <Artifact />
+            </li>
           ))}
-        </ul>
-        <p className="sprint-note">
-          Sju dager regnes fra arbeidsflyten er avgrenset og nødvendige data og tilganger er på plass. Avhengigheter hos eksterne leverandører kan påvirke tidspunktet for produksjonssetting.
-        </p>
-      </div>
+        </ol>
 
-      <div className="offer-timeline">
-        {offerSteps.map((step, index) => (
-          <article className="timeline-step" key={step.days}>
-            <div className="timeline-meta">
-              <span>0{index + 1}</span>
-              <p>{step.days}</p>
-            </div>
-            <div>
+        <div className="proof">
+          <p className="proof-figure">1 hel arbeidsdag tilbake</p>
+          <p>
+            I en tidlig prototype skulle en selger kvalitetssikre 13 leads mot Brønnøysundregistrene, økonomi og sosiale medier. Manuelt tar det en arbeidsdag. Den AI-assisterte arbeidsflyten gjorde det på litt over fem minutter.
+          </p>
+        </div>
+
+        <div className="case-outro">
+          <p>
+            Dette er ett eksempel på hva AI kan bli i praksis. Har dere noe lignende som stjeler tid, enten det er i salg, drift eller administrasjon?
+          </p>
+          <a className="button button-marker" href="#kontakt">Snakk med meg om det</a>
+        </div>
+      </div>
+    </section>
+  );
+}
+
+function Method() {
+  return (
+    <section className="method" id="arbeidsmate" aria-labelledby="method-title">
+      <div className="wrap">
+        <h2 id="method-title" className="visually-hidden">Slik jobber vi</h2>
+        <ol className="steps">
+          {steps.map((step, index) => (
+            <li key={step.title}>
+              <span className="step-number" aria-hidden="true">{index + 1}</span>
               <h3>{step.title}</h3>
               <p>{step.text}</p>
-            </div>
-          </article>
-        ))}
+            </li>
+          ))}
+        </ol>
       </div>
     </section>
   );
 }
 
-function Results() {
+function RotatingQuestion() {
+  const { index, pauseHandlers } = useRotation(contactRoles.length, 3200);
+  const [who, what] = contactRoles[index];
+
   return (
-    <section className="results-section" id="resultater" aria-labelledby="results-title">
-      <div className="results-heading content-width">
-        <div>
-          <div className="section-number">03 / Resultater</div>
-          <p className="eyebrow"><span />Bygget i virkeligheten</p>
-        </div>
-        <div>
-          <h2 id="results-title">Jeg kommer ikke fra PowerPoint. Jeg kommer fra produksjon.</h2>
-          <p>Dette er arbeid jeg faktisk har eid, bygget eller løst – med ulike grader av ansvar og modenhet tydelig merket.</p>
-        </div>
-      </div>
-
-      <div className="case-list content-width">
-        {cases.map((item, index) => (
-          <article className="case" key={item.name}>
-            <div className="case-meta">
-              <span className="case-index">0{index + 1}</span>
-              <p className="case-status">{item.status}</p>
-              <h3>{item.name}</h3>
-            </div>
-            <div className="case-body">
-              <h4>{item.title}</h4>
-              <p>{item.summary}</p>
-              <ul>
-                {item.facts.map((fact) => <li key={fact}>{fact}</li>)}
-              </ul>
-              <div className="case-result">
-                <span>Effekt</span>
-                <p>{item.result}</p>
-              </div>
-            </div>
-          </article>
-        ))}
-      </div>
-
-      <div className="micro-case content-width">
-        <div>
-          <span className="case-status">Intern prototype</span>
-          <h3>Én arbeidsdag ble til litt over fem minutter.</h3>
-        </div>
-        <p>
-          En selger skulle kvalitetssikre 13 leads mot Brønnøysundregistrene, økonomi og sosiale medier. En enkel AI-assistert arbeidsflyt leverte listen på minutter. Neste steg er å gjøre forsøket repeterbart og målbart.
-        </p>
-      </div>
-    </section>
-  );
-}
-
-function Pricing() {
-  return (
-    <section className="pricing-section section-frame" id="pris" aria-labelledby="pricing-title">
-      <div className="pricing-main">
-        <div className="section-number">04 / Pris og ansvar</div>
-        <p className="eyebrow"><span />Interessene våre skal peke samme vei</p>
-        <h2 id="pricing-title">Pris som følger verdien – ikke antall timer.</h2>
-        <p className="pricing-lead">
-          En avgrenset sprint har en avtalt grunnpris, normalt fra 25 000 kroner. Når løsningen skaper dokumentert besparelse, tar jeg 50 % av gevinsten de første tre månedene. Vi bestemmer målemetoden og et pristak før jeg bygger.
-        </p>
-
-        <div className="formula" aria-label="Slik beregnes besparelsen">
-          <span>Dagens kostnad</span>
-          <b>−</b>
-          <span>Ny kostnad</span>
-          <b>=</b>
-          <strong>Dokumentert besparelse</strong>
-        </div>
-
-        <p className="pricing-note">
-          Tidsbruk, volum, lønnskostnad og systemkostnader inngår i en enkel baseline begge parter godkjenner. Produksjonssetting, større integrasjoner og et videre teknologimandat avtales separat når sprinten har vist hva som er verdt å investere i.
-        </p>
-      </div>
-
-      <aside className="support-panel" aria-labelledby="support-title">
-        <p className="aside-label">Samarbeidsmodell</p>
-        <h3 id="support-title">Faste kontaktpunkter. Tydelig ansvar.</h3>
-        <div className="support-item">
-          <span>I sprinten</span>
-          <h4>Konsentrert levering</h4>
-          <p>Kickoff, asynkront utviklingsarbeid og en avtalt demonstrasjon. Lite møtetid, tydelig fremdrift.</p>
-        </div>
-        <div className="support-item">
-          <span>Etter levering</span>
-          <h4>Avtalt support</h4>
-          <p>Support via e-post med svar neste virkedag. Kritiske systemer krever en egen driftsavtale med passende beredskap.</p>
-        </div>
-        <div className="support-item">
-          <span>Når verdien er bevist</span>
-          <h4>Større samarbeid</h4>
-          <p>Videreutvikling, flere prosesser eller løpende ansvar som operativ teknologipartner – uten å starte på nytt med en ny leverandør.</p>
-        </div>
-      </aside>
-    </section>
-  );
-}
-
-function About() {
-  return (
-    <section className="about-section content-width" aria-labelledby="about-title">
-      <div className="section-number">05 / Personen</div>
-      <div className="about-title">
-        <p className="eyebrow"><span />Johnny Bakaas</p>
-        <h2 id="about-title">Teknisk nok til å bygge. Operativ nok til å forstå hvorfor.</h2>
-      </div>
-      <div className="about-copy">
-        <p>
-          Jeg har tatt ansvar i skjæringspunktet mellom salg, lager, verksted, marked, kunder og utvikling. Det er der de beste systemene blir til – når teknologi formes av dem som faktisk skal bruke den.
-        </p>
-        <p>
-          Jeg trives best når problemet er uklart, flere fagmiljøer må bli enige og noen må ta eierskap helt fram til løsningen fungerer i produksjon.
-        </p>
-      </div>
-    </section>
+    <h2 id="contact-title" className="rotating" {...pauseHandlers}>
+      <span className="visually-hidden">
+        Hvor mye arbeid gjør folkene deres før de er klare til å gjøre jobben?
+      </span>
+      <span aria-hidden="true">
+        Hvor mye arbeid gjør{" "}
+        <mark key={`who-${index}`}>{who}</mark> deres før de er klare til å{" "}
+        <mark key={`what-${index}`} className="is-second">{what}</mark>?
+      </span>
+    </h2>
   );
 }
 
 function Contact() {
-  const mailSubject = encodeURIComponent("Kandidat til en 7-dagers sprint");
-  const mailBody = encodeURIComponent(
-    "Hei Johnny,\n\nProsessen vi vil forbedre er:\n\nI dag bruker vi omtrent:\n\nDette skaper problemer fordi:\n\nSystemene eller dataene som er involvert er:\n\nMvh\n"
+  const subject = encodeURIComponent("Forarbeid som tar for mye tid");
+  const body = encodeURIComponent(
+    "Hei Johnny,\n\nOppgaven som tar tid hos oss er:\n\nDen gjøres av:\n\nOmtrent så ofte:\n\nMvh\n"
   );
 
   return (
-    <section className="contact-section section-frame" id="kontakt" aria-labelledby="contact-title">
-      <div className="contact-main">
-        <p className="eyebrow"><span />Start med problemet</p>
-        <h2 id="contact-title">Vis meg den verste prosessen. Om én uke vet vi hva som er mulig.</h2>
-        <p>
-          Du trenger ikke en kravspesifikasjon. Fortell meg hva som tar tid, hvem som gjør det og hvor ofte det skjer. Hvis prosessen passer for en sprint, avgrenser vi den sammen – og lar resultatet avgjøre hvor stort samarbeidet bør bli.
-        </p>
-        <a
-          className="button button-light"
-          href={`mailto:Johnny@Bakaas-CadConsult.no?subject=${mailSubject}&body=${mailBody}`}
-        >
-          Søk om en 7-dagers sprint <ArrowIcon />
-        </a>
-      </div>
-      <div className="contact-details">
-        <p className="aside-label">Direkte kontakt</p>
-        <a href="mailto:Johnny@Bakaas-CadConsult.no">Johnny@Bakaas-CadConsult.no</a>
-        <a href="tel:+4790732947">+47 907 32 947</a>
-        <div className="contact-links">
-          <a href="https://www.linkedin.com/in/johnny-bakaas-1a7370250/" target="_blank" rel="noreferrer">LinkedIn <span>↗</span></a>
-          <a href="https://github.com/JohnnyBakaas" target="_blank" rel="noreferrer">GitHub <span>↗</span></a>
+    <section className="contact" id="kontakt" aria-labelledby="contact-title">
+      <div className="wrap contact-inner">
+        <RotatingQuestion />
+        <div className="contact-body">
+          <p>
+            Hvilken oppgave tar mer tid enn den burde hos dere? Fortell meg hva den går ut på, hvem som gjør den og hvor ofte. Så finner vi ut om den egner seg.
+          </p>
+          <a className="button" href={`mailto:${EMAIL}?subject=${subject}&body=${body}`}>
+            Send meg en e-post
+          </a>
+          <dl className="contact-details">
+            <div>
+              <dt>E-post</dt>
+              <dd><a href={`mailto:${EMAIL}`}>{EMAIL}</a></dd>
+            </div>
+            <div>
+              <dt>Telefon</dt>
+              <dd><a href="tel:+4790732947">907 32 947</a></dd>
+            </div>
+          </dl>
         </div>
       </div>
     </section>
-  );
-}
-
-function Footer() {
-  return (
-    <footer className="site-footer content-width">
-      <p>© {new Date().getFullYear()} Johnny Bakaas</p>
-      <p>Automatisering som skaper kapasitet.</p>
-      <a href="#top">Til toppen ↑</a>
-    </footer>
   );
 }
 
@@ -426,16 +557,17 @@ export default function App() {
   return (
     <>
       <Header />
-      <main id="main-content">
+      <main id="innhold">
         <Hero />
-        <Problem />
-        <Offer />
-        <Results />
-        <Pricing />
-        <About />
+        <Intro />
+        <Case />
+        <Method />
         <Contact />
       </main>
-      <Footer />
+      <footer className="site-footer wrap">
+        <p>© {new Date().getFullYear()} Johnny Bakaas</p>
+        <a href="#top">Til toppen</a>
+      </footer>
     </>
   );
 }
