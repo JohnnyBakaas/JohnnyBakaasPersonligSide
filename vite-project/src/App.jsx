@@ -7,7 +7,6 @@ const weekTasks = [
   { area: "Salg", task: "Sjekke nye leads mot Brønnøysund og nettsider", marked: true },
   { area: "Kundeservice", task: "Svare på de samme spørsmålene om leveringstid", marked: true },
   { area: "Kundeservice", task: "Ringe kunden som var misfornøyd med monteringen" },
-  { area: "Økonomi", task: "Matche innkommende fakturaer mot bestillinger", marked: true },
   { area: "Drift", task: "Legge inn ordre fra e-post i ordresystemet", marked: true },
   { area: "Ledelse", task: "Planlegge neste kvartal med teamet" },
 ];
@@ -16,8 +15,7 @@ const weekTasks = [
 const heroPairs = [
   { less: "sjekke leads", more: "selge", task: 0 },
   { less: "svare på det samme", more: "hjelpe kunden", task: 1 },
-  { less: "matche fakturaer", more: "styre økonomien", task: 3 },
-  { less: "taste inn ordre", more: "levere", task: 4 },
+  { less: "taste inn ordre", more: "levere", task: 3 },
 ];
 
 const contactRoles = [
@@ -382,7 +380,7 @@ function Header() {
 }
 
 function Hero() {
-  const { index, setIndex, pauseHandlers, stop } = useRotation(heroPairs.length, 3200);
+  const { index, setIndex, pauseHandlers, stop } = useRotation(heroPairs.length, 4800);
   const pair = heroPairs[index];
 
   const selectTask = (task, pin = false) => {
@@ -408,7 +406,7 @@ function Hero() {
         </h1>
         <div className="hero-copy">
           <p className="lead">
-            Jeg er AI-konsulent og bygger løsninger som tar unna gjentakende oppgaver i salg, kundeservice, økonomi og drift. Vi finner flaskehalsen, bygger en pilot og vurderer verdien før vi utvider.
+            Jeg er AI-konsulent og bygger løsninger som tar unna gjentakende oppgaver i salg, kundeservice og drift. Vi finner flaskehalsen, bygger en pilot og vurderer verdien før vi utvider.
           </p>
           <div className="hero-actions">
             <a className="button" href="#kontakt">Ta kontakt</a>
@@ -570,7 +568,7 @@ function Method() {
 }
 
 function RotatingQuestion() {
-  const { index, pauseHandlers } = useRotation(contactRoles.length, 3200);
+  const { index, pauseHandlers } = useRotation(contactRoles.length, 4800);
   const [who, what] = contactRoles[index];
 
   return (
