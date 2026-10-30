@@ -269,7 +269,6 @@ p {
   text-align: left;
   background: none;
   border: 0;
-  transition: opacity 0.25s;
 }
 
 button.week-row {
@@ -333,12 +332,19 @@ button.week-row {
 
 /* Focus: dim everything except the task shown in the headline */
 
-.week li:not(.is-active) .week-row {
-  opacity: 0.42;
+.week li:not(.is-active) .week-area,
+.week li:not(.is-active) .week-task {
+  color: var(--muted);
+  font-weight: 400;
 }
 
-.week li:not(.is-active) button.week-row:hover {
-  opacity: 0.75;
+.week li:not(.is-active) .week-task mark {
+  background: none;
+  box-shadow: inset 0 -0.4em 0 rgba(243, 213, 78, 0.35);
+}
+
+.week li.is-job:not(.is-active) .week-task mark {
+  box-shadow: inset 0 -0.4em 0 rgba(169, 214, 238, 0.45);
 }
 
 .week li.is-active .week-area {
@@ -488,6 +494,10 @@ button.week-row {
   padding-block: clamp(72px, 10vw, 136px);
   color: var(--on-ink);
   background: var(--ink);
+}
+
+.case :focus-visible {
+  outline-color: var(--marker);
 }
 
 .case .kicker {
@@ -1048,6 +1058,16 @@ button.week-row {
 
 /* Responsive */
 
+@media (max-width: 1000px) {
+  .artifact-signals li {
+    grid-template-columns: minmax(0, 1fr) auto;
+  }
+
+  .artifact-signals .signal-kind {
+    grid-column: 1 / -1;
+  }
+}
+
 @media (max-width: 920px) {
   .hero-inner,
   .case-head,
@@ -1080,6 +1100,11 @@ button.week-row {
     width: calc(100% - 32px);
   }
 
+  .contact h2 {
+    font-size: clamp(1.7rem, 9vw, 2rem);
+    overflow-wrap: break-word;
+  }
+
   .nav-optional,
   .brand span {
     display: none;
@@ -1107,14 +1132,6 @@ button.week-row {
 
   .flow > li {
     padding-left: 36px;
-  }
-
-  .artifact-signals li {
-    grid-template-columns: minmax(0, 1fr) auto;
-  }
-
-  .artifact-signals .signal-kind {
-    grid-column: 1 / -1;
   }
 
   .week {

@@ -238,14 +238,24 @@ function useRotation(length, interval) {
   const [index, setIndex] = useState(0);
   const [paused, setPaused] = useState(false);
   const [stopped, setStopped] = useState(false);
+  const [reduced, setReduced] = useState(
+    () => window.matchMedia("(prefers-reduced-motion: reduce)").matches,
+  );
 
   useEffect(() => {
-    if (paused || stopped || window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
+    const query = window.matchMedia("(prefers-reduced-motion: reduce)");
+    const onChange = () => setReduced(query.matches);
+    query.addEventListener("change", onChange);
+    return () => query.removeEventListener("change", onChange);
+  }, []);
+
+  useEffect(() => {
+    if (paused || stopped || reduced) return;
     const timer = window.setInterval(() => {
       setIndex((current) => (current + 1) % length);
     }, interval);
     return () => window.clearInterval(timer);
-  }, [paused, stopped, length, interval]);
+  }, [paused, stopped, reduced, length, interval]);
 
   const pauseHandlers = {
     onMouseEnter: () => setPaused(true),
